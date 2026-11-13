@@ -19,10 +19,10 @@ module tt_um_quantum_engine (
     reg [15:0] q_state_lfsr;
     reg [3:0]  c_reg;
 
-    wire b0  = q_state_lfsr & 1'b1;
-    wire b2  = (q_state_lfsr >> 2) & 1'b1;
-    wire b3  = (q_state_lfsr >> 3) & 1'b1;
-    wire b15 = (q_state_lfsr >> 15) & 1'b1;
+    wire b0  = q_state_lfsr[0];
+    wire b2  = q_state_lfsr[2];
+    wire b3  = q_state_lfsr[3];
+    wire b15 = q_state_lfsr[15];
 
     wire q0_measured = b0 ^ b15;
     wire q1_measured = q0_measured;
@@ -32,7 +32,7 @@ module tt_um_quantum_engine (
             q_state_lfsr <= 16'hACE1 ^ {8'h00, ui_in};
             c_reg <= 4'b0000;
         end else begin
-            q_state_lfsr <= (q_state_lfsr << 1) | {15'b0, (b0 ^ b2 ^ b3 ^ b15)};
+            q_state_lfsr <= {q_state_lfsr[14:0], (b0 ^ b2 ^ b3 ^ b15)};
             c_reg <= {2'b00, q1_measured, q0_measured};
         end
     end
