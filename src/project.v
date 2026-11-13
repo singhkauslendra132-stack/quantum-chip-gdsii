@@ -27,7 +27,7 @@ module tt_um_quantum_engine (
     wire q0_measured = b0 ^ b15;
     wire q1_measured = q0_measured;
 
-    always @(posedge clk or negedge rst_n) begin
+    always @(posedge clk) begin
         if (!rst_n) begin
             q_state_lfsr <= 16'hACE1 ^ {8'h00, ui_in};
             c_reg <= 4'b0000;
