@@ -40,3 +40,4 @@ module tt_um_quantum_engine (
     assign uo_out = {4'b0000, c_reg};
 
 endmodule
+// Quantum Bell-State Engine
